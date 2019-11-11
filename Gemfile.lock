@@ -69,7 +69,6 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    libv8 (6.7.288.46.1)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -81,8 +80,6 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
-    mini_racer (0.2.4)
-      libv8 (>= 6.3)
     minitest (5.11.3)
     net-scp (2.0.0)
       net-ssh (>= 2.6.5, < 6.0.0)
@@ -168,7 +165,6 @@ DEPENDENCIES
   capistrano-rails (~> 1.2)
   database_cleaner
   execjs
-  mini_racer
   normalize-rails
   pg
   puma (~> 3.11)
@@ -177,3 +173,9 @@ DEPENDENCIES
   roo-xls
   spring
   web-console (>= 3.3.0)
+
+RUBY VERSION
+   ruby 2.4.5p335
+
+BUNDLED WITH
+   1.17.3

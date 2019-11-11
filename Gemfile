@@ -17,10 +17,10 @@ gem 'puma', '~> 3.11'
 #
 #gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'mini_racer', platforms: :ruby
+#gem 'mini_racer', platforms: :ruby
+#gem 'therubyracer', '~> 0.12.3'
 
 gem 'execjs'
-#gem 'therubyracer', '~> 0.12.3'
 #  read excel spreadsheets
 gem 'roo'
 gem 'roo-xls'

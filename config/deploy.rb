@@ -1,7 +1,8 @@
 # config valid only for current version of Capistrano
 lock "3.11.0"
+set :chruby_ruby, 'ruby-2.4.5'
 
-set :application, "aact"
+set :application, "aact-proj"
 
 # Default branch is :master
 ask :branch, 'development'
@@ -16,9 +17,12 @@ task :finish_up do
   on roles(:app) do
     # create symlink to to the root directory containing aact static files
     # content of this directory can get big; we create this directory on a separate NAS drive
+    source = ENV.fetch('AACT_STATIC_FILE_DIR','~/aact-files')
     target = release_path.join('public/static')
-    source = ENV.fetch('AACT_STATIC_FILE_DIR','/aact-files')
-    execute :ln, '-s', source, target
+    begin
+      execute :ln, '-s', source, target
+    rescue
+    end
     # restart the website
     execute :touch, release_path.join('tmp/restart.txt')
   end
@@ -31,7 +35,7 @@ end
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
-set :format_options, command_output: true, log_file: "#{ENV.fetch('STATIC_FILE_DIR','/aact-files')}/logs/capistrano_aact_proj.log", color: :auto, truncate: :auto
+set :format_options, command_output: true, log_file: "#{ENV.fetch('STATIC_FILE_DIR','~/aact-files')}/logs/capistrano_aact_proj.log", color: :auto, truncate: :auto
 
 # Default value for :pty is false
 # set :pty, true
@@ -45,12 +49,12 @@ set :format_options, command_output: true, log_file: "#{ENV.fetch('STATIC_FILE_D
 # Default value for default_env is {}
 
 set :default_env, {
-  'PATH'             => ENV['AACT_PATH'],
-  'LD_LIBRARY_PATH'  => ENV['AACT_LD_LIBRARY_PATH'],
-  'APPLICATION_HOST' => ENV['APPLICATION_HOST'],
-  'RUBY_VERSION'     => 'ruby 2.4.5',
-  'GEM_HOME'         => ENV['AACT_GEM_HOME'],
-  'GEM_PATH'         => ENV['AACT_GEM_PATH'],
+  'PATH' => ENV['AACT_PATH'] || "<server-path>/shared/bundle/ruby/2.4.5/bin:/opt/rh/rh-ruby24/root/usr/lib64",
+  'LD_LIBRARY_PATH' => ENV['LD_LIBRARY_PATH'] || "/opt/rh/rh-ruby24/root/usr/lib64",
+  'APPLICATION_HOST' => ENV['APPLICATION_HOST'] || 'localhost',
+  'RUBY_VERSION' =>  ENV['RUBY_VERSION'] || 'ruby 2.4.5',
+  'GEM_HOME' => ENV['GEM_HOME'] || '~/.gem/ruby',
+  'GEM_PATH' => ENV['GEM_PATH'] || '~/.gem/ruby/gems:/opt/rh/rh-ruby24/root/usr/share/gems:/opt/rh/rh-ruby24/root/usr/local/share/gems:/opt/rh/rh-ruby24/root/usr/lib64'
 }
 
 # Default value for keep_releases is 5
