@@ -1,5 +1,5 @@
 module ProjTagRti
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       { name:                 ' Respiratory tract infection clinical trials from 2007 to 2012. A systematic review of clinicaltrials. gov.',
@@ -58,7 +58,7 @@ module ProjTagRti
       []
     end
 
-    def self.load_project_tables
+    def self.populate
       #ProjTagPvd::AnalyzedStudy.populate
     end
 

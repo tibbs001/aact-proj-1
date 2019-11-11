@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.4.0'
+ruby '2.4.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 5.2.1'
+gem "actionview", ">= 5.2.2.1"
 # Use pg as the database for Active Record
 gem 'pg'
 #gem 'sqlite3'
@@ -16,10 +17,10 @@ gem 'puma', '~> 3.11'
 #
 #gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'mini_racer', platforms: :ruby
+#gem 'mini_racer', platforms: :ruby
+#gem 'therubyracer', '~> 0.12.3'
 
 gem 'execjs'
-#gem 'therubyracer', '~> 0.12.3'
 #  read excel spreadsheets
 gem 'roo'
 gem 'roo-xls'

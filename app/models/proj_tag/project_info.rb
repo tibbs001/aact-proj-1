@@ -1,5 +1,5 @@
 module ProjTag
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       #  Required:  name, schema_name & migration_file_name
@@ -57,7 +57,7 @@ module ProjTag
       ]
     end
 
-    def self.load_project_tables
+    def self.populate
       ProjTag::TaggedTerm.populate
     end
 

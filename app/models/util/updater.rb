@@ -3,7 +3,7 @@ module Util
 
      def self.run
       Admin::Project.project_list.each{ |proj_module| new.populate("Proj#{proj_module}") }
-      self.populate_mesh_thesauri
+#      self.populate_mesh_thesauri
       Util::DbManager.new.refresh_public_db
     end
 
@@ -20,13 +20,14 @@ module Util
       Admin::Project.connection.execute("DELETE FROM PROJECTS WHERE NAME = '#{new_proj.name.strip}';")
       proj_info.attachments.each{ |a| new_proj.attachments << Admin::Attachment.create_from(a) }
       proj_info.publications.each{ |p| new_proj.publications << Admin::Publication.create(p) }
+      proj_info.faqs.each{ |f| new_proj.faqs << Admin::Faq.create(f) }
       proj_info.datasets.each{ |ds|
         file = Rack::Test::UploadedFile.new(ds[:file_name], ds[:file_type])
         new_proj.datasets << Admin::Dataset.create_from(ds, file)
       }
       new_proj.save!
       #DataDefinition.populate(new_proj.schema_name)
-      proj_info.load_project_tables
+      proj_info.populate
     end
 
     def image

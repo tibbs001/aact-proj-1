@@ -1,6 +1,6 @@
 require 'roo'
 module ProjResultsReporting
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       #  Required:  name, schema_name & migration_file_name
@@ -64,7 +64,7 @@ module ProjResultsReporting
       ]
     end
 
-    def self.load_project_tables
+    def self.populate
       ProjResultsReporting::AnalyzedStudy.populate
     end
 

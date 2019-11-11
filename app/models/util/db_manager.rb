@@ -12,15 +12,15 @@ module Util
 
     def dump
       schema_snippet = Admin::Project.schema_name_array.join(' --schema mesh_archive --schema ')
-      "pg_dump #{ENV['AACT_PROJ_DATABASE_URL']} -v -h localhost -p 5432 -U #{ENV['AACT_DB_SUPER_USERNAME']} --no-password --clean --schema #{schema_snippet} -b -c -C -Fc -f #{dump_file_name}"
+      "pg_dump #{AACT::Application::AACT_PROJ_DATABASE_URL} -v -h localhost -p 5432 -U #{AACT::Application::AACT_DB_SUPER_USERNAME} --no-password --clean --schema #{schema_snippet} -b -c -C -Fc -f #{dump_file_name}"
     end
 
     def restore(database_name)
-      "pg_restore -c -j 5 -v -h #{ENV['AACT_PUBLIC_HOSTNAME']} -p 5432 -U #{ENV['AACT_DB_SUPER_USERNAME']} -d #{database_name}  #{dump_file_name}"
+      "pg_restore -c -j 5 -v -h #{AACT::Application::AACT_PUBLIC_HOSTNAME} -p 5432 -U #{AACT::Application::AACT_DB_SUPER_USERNAME} -d #{database_name}  #{dump_file_name}"
     end
 
     def grant_privs
-      con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
+      con=ActiveRecord::Base.establish_connection(AACT::Application::AACT_PUBLIC_DATABASE_URL).connection
       con.execute("GRANT USAGE ON SCHEMA ctgov to read_only;")
       con.execute("GRANT USAGE ON SCHEMA mesh_archive to read_only;")
       con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA ctgov TO read_only;")
@@ -31,7 +31,7 @@ module Util
       }
       con.reset!
 
-      con=ActiveRecord::Base.establish_connection(ENV['AACT_ALT_PUBLIC_DATABASE_URL']).connection
+      con=ActiveRecord::Base.establish_connection(AACT::Application::AACT_ALT_PUBLIC_DATABASE_URL).connection
       con.execute("GRANT USAGE ON SCHEMA ctgov to read_only;")
       con.execute("GRANT USAGE ON SCHEMA mesh_archive to read_only;")
       con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA ctgov TO read_only;")
@@ -51,7 +51,7 @@ module Util
     end
 
     def dump_file_name
-      '/aact-files/other/project.dmp'
+      "#{AACT::Application::AACT_STATIC_FILE_DIR}/other/project.dmp"
     end
 
   end

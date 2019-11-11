@@ -1,9 +1,9 @@
 module ProjSummaryTrends
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       #  Required:  name & schema_name
-      #  If migration_file_name defined, add code that will populate it to the method: load_project_tables
+      #  If migration_file_name defined, add code that will populate it to the method below: populate
       { name:                'Summaries and Trends of Interventional Trials in ClinicalTrials.gov 2008-2017',
         schema_name:         'proj_summary_trends',
         investigators:       'Karen Chiswell',
@@ -41,7 +41,7 @@ module ProjSummaryTrends
       ]
     end
 
-    def self.load_project_tables
+    def self.populate
     end
 
   end

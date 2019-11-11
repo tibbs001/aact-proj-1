@@ -1,5 +1,5 @@
 module ProjTagPulmonary
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       { name:                 'Using ClinicalTrials. gov to understand the state of clinical research in pulmonary, critical care, and sleep medicine',
@@ -58,7 +58,7 @@ module ProjTagPulmonary
       []
     end
 
-    def self.load_project_tables
+    def self.populate
       #ProjTagPulmonary::AnalyzedStudy.populate
     end
 
