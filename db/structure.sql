@@ -1330,7 +1330,7 @@ CREATE INDEX "index_mesh_archive.y2018_mesh_terms_on_qualifier" ON mesh_archive.
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO ctgov, mesh_archive, proj_results_reporting, proj_cdek_standard_orgs, proj_tag_nephrology, proj_tag_study_characteristics, public;
+SET search_path TO ctgov, mesh_archive, proj_results_reporting, proj_cdek_standard_orgs, proj_tag_nephrology, proj_tag_study_characteristics, proj_tag, public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20180430000122'),
