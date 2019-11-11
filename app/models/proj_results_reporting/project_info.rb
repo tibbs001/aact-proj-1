@@ -1,3 +1,4 @@
+require 'roo'
 module ProjResultsReporting
   class ProjectInfo
 
