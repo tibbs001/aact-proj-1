@@ -16,16 +16,6 @@ module Util
     def populate(proj_module)
       puts "Populating #{proj_module}..."
       proj_info = "#{proj_module}::ProjectInfo".constantize
-      new_proj = Admin::Project.new( proj_info.meta_info )
-      Admin::Project.connection.execute("DELETE FROM PROJECTS WHERE NAME = '#{new_proj.name.strip}';")
-      proj_info.attachments.each{ |a| new_proj.attachments << Admin::Attachment.create_from(a) }
-      proj_info.publications.each{ |p| new_proj.publications << Admin::Publication.create(p) }
-      proj_info.datasets.each{ |ds|
-        file = Rack::Test::UploadedFile.new(ds[:file_name], ds[:file_type])
-        new_proj.datasets << Admin::Dataset.create_from(ds, file)
-      }
-      new_proj.save!
-      #DataDefinition.populate(new_proj.schema_name)
       proj_info.load_project_tables
     end
 
