@@ -3,16 +3,14 @@ default: &default
   encoding: utf8
   min_messages: warning
   timeout: 5000
-  url:  <%= ENV.fetch("AACT_PROJ_DATABASE_URL", "") %>
+  url:  "postgres://tibbs001@localhost:5432/aact_proj"
 
 development:
   <<: *default
-  url:  <%= ENV.fetch("AACT_PROJ_DATABASE_URL", "") %>
 
 test:
   <<: *default
-  database: aact_back_test
+  database: aact_test
 
 production:
   <<: *default
-  url:  <%= ENV.fetch("AACT_PROJ_DATABASE_URL", "") %>

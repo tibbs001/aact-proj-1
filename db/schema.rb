@@ -138,7 +138,20 @@ ActiveRecord::Schema.define(version: 2018_11_08_000122) do
   end
 
   create_table "tagged_terms", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "identifier"
+    t.string "tag"
     t.string "term"
+    t.string "year"
+    t.string "term_type"
+  end
+
+  create_table "tagged_terms", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "identifier"
+    t.string "tag"
+    t.string "term"
+    t.string "year"
     t.string "term_type"
   end
 

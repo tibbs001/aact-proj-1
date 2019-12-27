@@ -105,7 +105,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    libv8 (6.7.288.46.1)
+    libv8 (3.16.14.19)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -117,8 +117,6 @@ GEM
     mimemagic (0.3.2)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
-    mini_racer (0.2.3)
-      libv8 (>= 6.3)
     minitest (5.11.3)
     multi_json (1.13.1)
     net-scp (1.2.1)
@@ -162,6 +160,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    ref (2.0.0)
     roo (2.7.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
@@ -216,6 +215,9 @@ GEM
     sshkit (1.17.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -253,7 +255,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   jquery-turbolinks
-  mini_racer
+  libv8 (~> 3.16.14.15)
   normalize-rails
   pg
   puma (~> 3.11)
@@ -264,11 +266,6 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
+  therubyracer (~> 0.12.3)
   turbolinks (~> 5)
   web-console (>= 3.3.0)
-
-RUBY VERSION
-   ruby 2.4.0p0
-
-BUNDLED WITH
-   1.16.4
