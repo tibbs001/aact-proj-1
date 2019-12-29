@@ -5,14 +5,13 @@ module Util
     def refresh_public_db
       File.delete(dump_file_name) if File.exist?(dump_file_name)
       run_command(dump)
-      run_command(restore('aact'))
-      run_command(restore('aact_alt'))
+      run_command(restore('open_trials'))
       grant_privs
     end
 
     def dump
       schema_snippet = Admin::Project.schema_name_array.join(' --schema mesh_archive --schema ')
-      cmd = "pg_dump -d aact_proj -v -h localhost -p 5432 -U #{AactProj::Application::WIKI_DB_SUPER_USERNAME} --no-password --clean --schema #{schema_snippet} -b -c -C -Fc -f #{dump_file_name}"
+      cmd = "pg_dump aact_proj -v -h localhost -p 5432 -U #{AactProj::Application::WIKI_DB_SUPER_USERNAME} --no-password --clean --schema #{schema_snippet} -b -c -C -Fc -f #{dump_file_name}"
       puts cmd
       return cmd
     end
@@ -25,6 +24,8 @@ module Util
 
     def grant_privs
       con=ActiveRecord::Base.establish_connection(AactProj::Application::AACT_PUBLIC_DATABASE_URL).connection
+      con.execute("alter role  #{AactProj::Application::WIKI_DB_SUPER_USERNAME} in database aact set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
+      con.execute("alter role  #{AactProj::Application::AACT_DB_SUPER_USERNAME} in database aact set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
       con.execute("GRANT USAGE ON SCHEMA ctgov to read_only;")
       con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA ctgov TO read_only;")
       Admin::Project.schema_name_array.each {|schema_name|
@@ -40,10 +41,6 @@ module Util
         con.execute("GRANT USAGE ON SCHEMA #{schema_name} to read_only;")
         con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA #{schema_name} TO read_only;")
       }
-      con.execute("alter role  #{AactProj::Application::WIKI_DB_SUPER_USERNAME} in database aact set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
-      con.execute("alter role  #{AactProj::Application::AACT_DB_SUPER_USERNAME} in database aact set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
-      con.execute("alter role  #{AactProj::Application::WIKI_DB_SUPER_USERNAME} in database aact_alt set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
-      con.execute("alter role  #{AactProj::Application::AACT_DB_SUPER_USERNAME} in database aact_alt set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
       con.reset!
     end
 
