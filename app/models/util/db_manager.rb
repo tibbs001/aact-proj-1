@@ -24,8 +24,8 @@ module Util
 
     def grant_privs
       con=ActiveRecord::Base.establish_connection(AactProj::Application::AACT_PUBLIC_DATABASE_URL).connection
-      con.execute("alter role  #{AactProj::Application::WIKI_DB_SUPER_USERNAME} in database aact set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
-      con.execute("alter role  #{AactProj::Application::AACT_DB_SUPER_USERNAME} in database aact set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
+      con.execute("alter role  #{AactProj::Application::WIKI_DB_SUPER_USERNAME} in database open_trials set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
+      con.execute("alter role  #{AactProj::Application::AACT_DB_SUPER_USERNAME} in database open_trials set search_path = ctgov, support, #{Admin::Project.schema_name_list}, public;")
       con.execute("GRANT USAGE ON SCHEMA ctgov to read_only;")
       con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA ctgov TO read_only;")
       Admin::Project.schema_name_array.each {|schema_name|
