@@ -4,7 +4,7 @@ module Util
 
     def refresh_public_db
       File.delete(dump_file_name) if File.exist?(dump_file_name)
-      create_public_db if !public_database_exists?
+      create_public_db if !public_db_exists?
       run_command(dump)
       run_command(restore('open_trials'))
       grant_privs
