@@ -7,10 +7,12 @@ default: &default
 
 development:
   <<: *default
+  database: aact_proj
 
 test:
   <<: *default
-  database: aact_test
+  database: aact_proj_test
 
 production:
   <<: *default
+  database: aact_proj

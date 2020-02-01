@@ -4,6 +4,7 @@ module Util
 
     def refresh_public_db
       File.delete(dump_file_name) if File.exist?(dump_file_name)
+      create_public_db if !public_database_exists?
       run_command(dump)
       run_command(restore('open_trials'))
       grant_privs
@@ -55,6 +56,18 @@ module Util
       '/aact-files/other/project.dmp'
     end
 
+    def public_db_exists?
+      ActiveRecord::Base.establish_connection(AactProj::Application::AACT_PUBLIC_DATABASE_URL).connection
+      rescue ActiveRecord::NoDatabaseError
+        false
+      else
+        true
+      end
+    end
+
+  def create_public_db
+    con=ActiveRecord::Base.establish_connection("postgres://#{AactProj::Application::AACT_DB_SUPER_USERNAME}@localhost:5432/#{AactProj::Application::AACT_DB_SUPER_USERNAME}").connection
+    con.execute("create databse #{AactProj::Application::AACT_PUBLIC_DATABASE}")
   end
 end
 
