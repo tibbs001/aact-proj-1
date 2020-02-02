@@ -57,7 +57,8 @@ module Util
     end
 
     def public_db_exists?
-      ActiveRecord::Base.establish_connection(AactProj::Application::AACT_PUBLIC_DATABASE_URL).connection
+      begin
+        ActiveRecord::Base.establish_connection(AactProj::Application::AACT_PUBLIC_DATABASE_URL).connection
       rescue ActiveRecord::NoDatabaseError
         false
       else
