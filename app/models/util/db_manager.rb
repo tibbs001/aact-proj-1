@@ -67,8 +67,8 @@ module Util
     end
 
     def create_public_db
-      con=ActiveRecord::Base.establish_connection("postgres://#{AactProj::Application::AACT_DB_SUPER_USERNAME}@localhost:5432/#{AactProj::Application::AACT_DB_SUPER_USERNAME}").connection
-      con.execute("create databse #{AactProj::Application::AACT_PUBLIC_DATABASE}")
+      con=ActiveRecord::Base.establish_connection("postgres://#{AactProj::Application::AACT_DB_SUPER_USERNAME}@localhost:5432/#{AactProj::Application::AACT_PROJ_DB_NAME}").connection
+      con.execute("create database #{AactProj::Application::AACT_PUBLIC_DATABASE_NAME}")
     end
 
   end
