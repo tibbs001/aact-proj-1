@@ -44,4 +44,16 @@ namespace :db do
    con.reset!
   end
 
+  def db_name
+    AactProj::Application::AACT_PROJ_DB_NAME
+  end
+
+  def wiki_superuser_name
+    AactProj::Application::AACT_DB_SUPER_USERNAME
+  end
+
+  def superuser_name
+    AactProj::Application::AACT_DB_SUPER_USERNAME
+  end
+
 end
