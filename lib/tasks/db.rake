@@ -18,12 +18,12 @@ namespace :db do
   task create: [:environment] do
     puts "aact_proj db:  set search_path ..."
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
-    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} in database #{ENV['AACT_PROJ_DATABASE']} set search_path = ctgov, mesh_archive, #{Admin::Project.schema_name_list}, public;")
+    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} in database #{ENV['AACT_PROJ_DATABASE']} set search_path = mesh_archive, #{Admin::Project.schema_name_list}, public;")
     con.reset!
 
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
-    con.execute("alter role read_only in database #{ENV['AACT_PUBLIC_DATABASE_NAME']} set search_path = ctgov, mesh_archive, #{Admin::Project.schema_name_list}, public;")
-    con.execute("alter role read_only in database #{ENV['AACT_PUBLIC_DATABASE_NAME']}_alt set search_path = ctgov, mesh_archive, #{Admin::Project.schema_name_list}, public;")
+    con.execute("alter role read_only in database #{ENV['AACT_PUBLIC_DATABASE_NAME']} set search_path = mesh_archive, #{Admin::Project.schema_name_list}, public;")
+    con.execute("alter role read_only in database #{ENV['AACT_PUBLIC_DATABASE_NAME']}_alt set search_path = mesh_archive, #{Admin::Project.schema_name_list}, public;")
     con.reset!
     Rake::Task["db:create"].invoke
   end
