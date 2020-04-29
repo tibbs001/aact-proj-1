@@ -9,7 +9,7 @@ module Admin
       # A list of all project modules currently in AACT.
       # Each module (in app/models) encapsulates all info about the project.
       # Tag must get created before all the other Tag-related projects.
-      [ 'ResultsReporting', 'CdekStandardOrgs', 'TagNephrology', 'TagStudyCharacteristics' ]
+      [ 'Covid', 'ResultsReporting', 'CdekStandardOrgs', 'TagNephrology', 'TagStudyCharacteristics' ]
     end
 
     def self.schema_name_array
