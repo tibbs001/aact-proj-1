@@ -3,7 +3,7 @@ default: &default
   encoding: utf8
   min_messages: warning
   timeout: 5000
-  url:  "postgres://aact@localhost:5432/aact_proj"
+  url:  "postgres://ctti@localhost:5432/aact_proj"
 
 development:
   <<: *default
