@@ -143,10 +143,6 @@ ActiveRecord::Schema.define(version: 2020_04_24_000122) do
     t.string "downcase_preferred_name"
   end
 
-  create_table "covid_study_ids", force: :cascade do |t|
-    t.string "nct_id"
-  end
-
   create_table "mental_health_studies", force: :cascade do |t|
     t.string "nct_id"
     t.string "brief_title"

@@ -3,6 +3,7 @@ module ProjCovid
     self.table_name = 'proj_covid.covid_study'
 
       def self.populate
+      #  Create this view in the public db only?
       ActiveRecord::Base.connection.execute <<-SQL
         create or replace view proj_covid.covid_studies as select
           s.NCT_ID, s.overall_status, s.study_type, s.official_title, s.acronym, s.phase, s.why_stopped, s.has_dmc, s.enrollment,
@@ -34,8 +35,8 @@ module ProjCovid
           FULL OUTER JOIN calculated_values cv ON s.nct_id = cv.nct_id
           FULL OUTER JOIN designs d ON s.nct_id = d.nct_id
           FULL OUTER JOIN eligibilities e ON s.nct_id = e.nct_id
-          FULL OUTER JOIN brief_summaries bs  ON s.nct_id = bs.nct_id
-          FULL OUTER JOIN detailed_descriptions dd  ON s.nct_id = dd.nct_id
+          FULL OUTER JOIN brief_summaries bs ON s.nct_id = bs.nct_id
+          FULL OUTER JOIN detailed_descriptions dd ON s.nct_id = dd.nct_id
           WHERE sp.lead_or_collaborator = 'lead'
           and s.nct_id IN (select nct_id from proj_covid.covid_study_ids);
         SQL
